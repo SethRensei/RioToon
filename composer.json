@@ -1,0 +1,19 @@
+{
+    "name": "sethrensei/riotoon",
+    "description": "Read and Download your favorite Webtoons",
+    "require": {
+        "altorouter/altorouter": "^2.0",
+        "yohang88/letter-avatar": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Riotoon\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Seth Rensei",
+            "email": "eddisethsita@proton.me"
+        }
+    ]
+}
