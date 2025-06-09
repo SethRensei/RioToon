@@ -261,3 +261,207 @@ html a {
 }
 
 /* END STYLE POUR LA PAGE D'ACCUEIL ET POUR LA GALERIE DES WEBTOONS */
+
+/* START STYLE POUR LA PAGE SHOW */
+.one-webt {
+    color: white;
+    height: auto;
+    display: grid;
+    padding: 10px 50px;
+    grid-template-columns: repeat(auto-fill, 1fr);
+    /*on crée le nombre de colonne*/
+    justify-content: center;
+    align-content: space-around;
+    grid-column-gap: 30px;
+}
+
+.one-webt .webt-img {
+    margin-top: 60px;
+    border-radius: 50%;
+    width: 300px;
+    height: 450px;
+}
+
+.one-webt .webt-info h4,
+.read-title h1 {
+    font-size: 2rem !important;
+    margin-bottom: 41px;
+    color: var(--col-blue1);
+}
+
+.one-webt .webt-info {
+    grid-column: 2 / 4;
+}
+
+.one-webt .webt-info .synopsis {
+    text-align: justify;
+}
+
+.last-chapters {
+    color: white;
+    padding: 30px;
+    margin: 16px 0;
+    font-size: 18px;
+}
+
+.last-chapters .table-resp--web {
+    max-height: 400px;
+    overflow-x: hidden;
+    width: 90%;
+}
+
+.last-chapters .table-resp--web table tbody td a {
+    text-decoration: none;
+    color: var(--col-gray1);
+    position: relative;
+}
+
+.last-chapters .table-resp--web table tbody td a:hover,
+.links a,
+.lien a:hover {
+    color: var(--col-blue1);
+}
+
+.last-chapters .table-resp--web .table>:not(caption)>*>* {
+    background-color: transparent;
+}
+
+div.rio-v {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.votes button {
+    margin: 0 12px;
+    border: none;
+    font-size: 1.22rem;
+    cursor: pointer;
+    background-color: transparent;
+    transition: color .4s;
+}
+
+div.votes button span.rio-m-9 {
+    margin-right: 9px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+div.votes button.like i:hover,
+.is-like .like i {
+    color: var(--col-green0);
+}
+
+div.votes button.dislike i:hover,
+.is-dislike .dislike i {
+    color: var(--col-red);
+}
+
+@media screen and (max-width: 995px) {
+    .one-webt {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .one-webt .webt-img {
+        margin: 50px 0;
+    }
+
+    .one-webt .webt-info h4 {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+}
+
+@media screen and (max-width: 416px) {
+    .one-webt .webt-img {
+        width: 200px;
+        height: 310px;
+    }
+
+    .one-webt .webt-info h4 {
+        font-size: 1.2rem !important;
+    }
+}
+
+/* END STYLE POUR LA PAGE SHOW */
+
+/* START STYLE POUR LA PAGE READ */
+.read-title {
+    margin-top: 18px;
+    text-align: center;
+    width: 100%;
+}
+
+.links {
+    width: 100%;
+    padding: 10px 20px;
+    height: 90px;
+}
+
+.links a {
+    color: var(--col-gray1);
+    margin-left: 24px;
+    margin-right: 24px;
+    text-decoration: none;
+    font-size: 1.32rem;
+}
+
+.links a:hover {
+    color: var(--col-yellow1);
+}
+
+.links select {
+    width: auto;
+    height: 30px;
+    padding: 0 12px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: black;
+    font-size: 1.23rem;
+    font-weight: 400;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.links form {
+    display: inline;
+}
+
+.links form button {
+    margin-left: 30px;
+    padding: 5px 9px;
+    border: none;
+    background-color: var(--col-red);
+    text-transform: uppercase;
+    word-spacing: 4px;
+}
+
+.links form button i {
+    margin-right: 8px;
+}
+
+.links form button:hover {
+    background-color: var(--col-green);
+}
+
+.read-webt {
+    margin-bottom: 38px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+}
+
+/* END STYLE POUR LA PAGE READ */

@@ -3,6 +3,7 @@
 namespace Riotoon\Repository;
 
 use Riotoon\Entity\Category;
+use Riotoon\Service\DbConnection;
 
 class CategoryRepository extends Category
 {

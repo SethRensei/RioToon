@@ -1,6 +1,6 @@
 <?php
 
-namespace Riotoon\Repository;
+namespace Riotoon\Service;
 
 class DbConnection
 {

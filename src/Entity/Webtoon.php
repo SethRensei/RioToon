@@ -14,6 +14,8 @@ class Webtoon
     private ?int $likes;
     private ?int $dislikes;
     private ?string $update_at;
+    private $c_ids;
+    private $categories;
 
     private ?array $STATUT = ["EN COURS", "TERMINE"];
 
@@ -214,5 +216,12 @@ class Webtoon
     public function getUpdatedAt()
     {
         return $this->update_at;
+    }
+
+    /**
+     * Get the value of categories
+     */
+    public function getCategories() {
+        return $this->categories;
     }
 }

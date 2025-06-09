@@ -3,6 +3,7 @@
 namespace Riotoon\Repository;
 
 use Riotoon\Entity\Webtoon;
+use Riotoon\Service\DbConnection;
 
 class WebtoonRepository
 {
@@ -41,6 +42,27 @@ class WebtoonRepository
             $this->items = $query->fetchAll(\PDO::FETCH_CLASS, Webtoon::class);
         } catch (\PDOException $e) {
             die("Impossible de récupérer les information : " . $e->getMessage());
+        }
+
+        return $this->items;
+    }
+
+    public function fetchByID($value)
+    {
+        $q = "SELECT webtoon.*,
+            STRING_AGG(category.c_id::TEXT, ',') AS c_ids,
+            STRING_AGG(category.label, ',') AS categories
+            FROM webtoon
+            JOIN web_cat ON webtoon.w_id = web_cat.w_id
+            JOIN category ON category.c_id = web_cat.c_id
+            WHERE webtoon.w_id = {$value}
+            GROUP BY webtoon.w_id";
+        try {
+            $query = $this->connec->query($q);
+            $query->setFetchMode(\PDO::FETCH_CLASS, Webtoon::class);
+            $this->items = $query->fetch();
+        } catch (\PDOException $e) {
+            die("Impossible d'éxecuter la requête" . $e->getMessage());
         }
 
         return $this->items;

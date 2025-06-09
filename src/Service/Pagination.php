@@ -3,7 +3,7 @@
 namespace Riotoon\Service;
 
 use PDO;
-use Riotoon\Repository\DbConnection;
+use Riotoon\Service\DbConnection;
 
 class Pagination
 {
