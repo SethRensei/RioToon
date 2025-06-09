@@ -1,14 +1,17 @@
 <?php
 
-use Riotoon\Entity\Webtoon;
-use Riotoon\Repository\WebtoonRepository;
+use Riotoon\Entity\{Category, Webtoon};
+use Riotoon\Repository\{CategoryRepository, WebtoonRepository};
 use Riotoon\Service\BuildErrors;
 
 $repository = new WebtoonRepository();
 $webtoon = new Webtoon();
 
+/** @var Category */
+$categories = CategoryRepository::findAll();
+
 if (isset($_POST['validate'], $_FILES['image']['name'])) {
-    if (!empty($_POST['title']) and !empty($_POST['author']) and !empty($_FILES['image']['size']) and !empty($_POST['release-year']) and !empty($_POST['status']) and !empty($_POST['synopsis']) /*and !empty($_POST['genres'])*/) {
+    if (!empty($_POST['title']) and !empty($_POST['author']) and !empty($_FILES['image']['size']) and !empty($_POST['release-year']) and !empty($_POST['status']) and !empty($_POST['synopsis']) and !empty($_POST['genres'])) {
         $name = replace(clean($_POST['title'])) . '-cover_' . rand(1000, 99999);
         $path = uploadFile($_FILES['image'], $name);
         $webtoon->setTitle($_POST['title'])
@@ -21,6 +24,8 @@ if (isset($_POST['validate'], $_FILES['image']['name'])) {
         //voir si l'image a bien été uploadé et qu'il n'y a plus d'erreurs
         if (empty($errors) and move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
             $id = $repository->create($webtoon);
+            foreach ($_POST['genres'] as $v)
+                CategoryRepository::addCategoriesForWebtoon($id, $v);
             $_POST = [];
         } else
             BuildErrors::setErrors('fail', "Ajout des données échoué");
@@ -73,7 +78,11 @@ $errors = BuildErrors::getErrors();
         <div class="col-md-10 mt-3">
             <label class="form-label">Genres<i class="text-danger">*</i></label>
             <div id="grid">
-                <!-- Categories -->
+                <?php foreach ($categories as $cat) :?>
+                    <div>
+                        <input type="checkbox" value="<?= $cat->getId() ?>" name="genres[]"><?= $cat->getName() ?>
+                    </div>
+                <?php endforeach?>
             </div>
         </div>
         <div class="col-10 mb-5">
