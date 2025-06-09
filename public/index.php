@@ -14,5 +14,5 @@ define(constant_name: 'BASE_URL', value: dirname(path: $_SERVER['SCRIPT_NAME']))
 
 $router = new Router(view_path: dirname(path: __DIR__) . '/template');
 
-$router->get(url: '/', view: 'index', name: 'home')
+$router->fallOver(url: '/', view: 'admin/webtoon/create', name: 'home')
     ->run();

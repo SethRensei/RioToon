@@ -41,6 +41,19 @@ class Router
     }
 
     /**
+     * Register a route for both GET and POST methods.
+     * @param string $url The URL pattern to match.
+     * @param string $view The view associated with the route.
+     * @param string $name Optional. The name of the route.
+     * @return \Riotoon\Controller\Router The Router instance for method chaining.
+     */
+    public function fallOver(string $url, string $view, ?string $name = null): self
+    {
+        $this->router->map('GET|POST', $url, $view, $name);
+        return $this;
+    }
+
+    /**
      * Execute the route and render the associated view
      * @return Router
      */

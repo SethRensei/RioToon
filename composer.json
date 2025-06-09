@@ -7,6 +7,9 @@
         "symfony/dotenv": "^7.3"
     },
     "autoload": {
+        "files": [
+            "src/functions/Helpers.php"
+        ],
         "psr-4": {
             "Riotoon\\": "src/"
         }
