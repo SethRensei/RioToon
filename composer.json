@@ -3,7 +3,8 @@
     "description": "Read and Download your favorite Webtoons",
     "require": {
         "altorouter/altorouter": "^2.0",
-        "yohang88/letter-avatar": "^2.3"
+        "yohang88/letter-avatar": "^2.3",
+        "symfony/dotenv": "^7.3"
     },
     "autoload": {
         "psr-4": {
@@ -15,5 +16,8 @@
             "name": "Seth Rensei",
             "email": "eddisethsita@proton.me"
         }
-    ]
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^7.3"
+    }
 }
