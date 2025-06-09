@@ -7,6 +7,7 @@ use Riotoon\Entity\Webtoon;
 class WebtoonRepository
 {
     private \PDO $connec;
+    private $items;
 
     public function __construct() {
         $this->connec = DbConnection::GetConnection();
@@ -31,5 +32,17 @@ class WebtoonRepository
         }
 
         return $last_id;
+    }
+
+    public function findAll()
+    {
+        try {
+            $query = $this->connec->query("SELECT * FROM webtoon");
+            $this->items = $query->fetchAll(\PDO::FETCH_CLASS, Webtoon::class);
+        } catch (\PDOException $e) {
+            die("Impossible de récupérer les information : " . $e->getMessage());
+        }
+
+        return $this->items;
     }
 }

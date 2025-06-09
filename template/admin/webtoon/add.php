@@ -4,6 +4,8 @@ use Riotoon\Entity\{Category, Webtoon};
 use Riotoon\Repository\{CategoryRepository, WebtoonRepository};
 use Riotoon\Service\BuildErrors;
 
+$pg_title = 'RioToon - Administration | Ajouter un webtoon';
+
 $repository = new WebtoonRepository();
 $webtoon = new Webtoon();
 
@@ -90,3 +92,21 @@ $errors = BuildErrors::getErrors();
         </div>
     </form>
 </div>
+
+<style>
+    #grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 130px);
+        grid-column-gap: 3.2rem;
+        grid-row-gap: 8px;
+        width: 100%;
+        border: 1px solid black;
+        font-size: 16px !important;
+        padding: 12px 0 12px 8px;
+    }
+
+    #grid div input {
+        margin-right: 8px;
+        text-align: left;
+    }
+</style>

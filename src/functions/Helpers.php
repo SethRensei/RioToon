@@ -54,8 +54,7 @@ function replace(string $subject, string $replace = '_'): ?string
  * Get an array of characters that are to be replaced in a string.
  * @return array|null An array of characters to be replaced, or null if no characters defined.
  */
-function chars(): ?array
-{
+function chars(): ?array {
     return ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+',
                     '=', '[', ']', '{', '|', '}', '\\', ';', ':', '\'', '"', ',', 
                     '.', '<', '>', '?', '/', ' '
@@ -76,7 +75,7 @@ function uploadFile(
     $name,
     string $size = '5242880',
     string $directory = '../public/images/cover/',
-    array $extension = ['jpeg', 'png', 'jpg', 'gif', 'jfif']
+    array $extension = ['jpeg', 'png', 'jpg', 'gif', 'jfif', 'webp']
 ): ?string {
     $image_name = clean($file['name']);
     if ($file['size'] <= $size) {
@@ -92,4 +91,18 @@ function uploadFile(
         BuildErrors::setErrors('file', 'Le fichier fait plus de ' . ceil((int) $size / 1048576) . 'Mo');
 
     return '';
+}
+
+/**
+ * Generate an excerpt of a given content string with a specified character limit.
+ * @param mixed $content The content string to generate an excerpt from.
+ * @param int $limit (Optional) The character limit for the excerpt (default: 15).
+ * @return string The excerpted content with an ellipsis (...) if truncated.
+ */
+function excerpt($content, int $limit = 15)
+{
+    $content = unClean($content);
+    if (mb_strlen($content) <= $limit)
+        return $content;
+    return mb_substr($content, 0, $limit) . '...';
 }

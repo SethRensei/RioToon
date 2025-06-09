@@ -13,7 +13,7 @@ class Webtoon
     private ?bool $status;
     private ?int $likes;
     private ?int $dislikes;
-    private ?\DateTime $update_at;
+    private ?string $update_at;
 
     private ?array $STATUT = ["EN COURS", "TERMINE"];
 
