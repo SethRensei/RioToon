@@ -76,8 +76,9 @@ class Router
             $pg_content = ob_get_clean();
             require $this->view_path . DIRECTORY_SEPARATOR . $layout . '.php';
         } catch (\Exception $e) {
-            $_SESSION['error'] = $e->getMessage();
-            header('Location:' . $router->url('error'));
+            // $_SESSION['error'] = $e->getMessage();
+            die($e->getMessage());
+            // header('Location:' . $router->url('error'));
         }
 
         return $this;

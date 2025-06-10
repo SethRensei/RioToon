@@ -29,6 +29,9 @@ if (isset($_POST['validate'], $_FILES['image']['name'])) {
             foreach ($_POST['genres'] as $v)
                 CategoryRepository::addCategoriesForWebtoon($id, $v);
             $_POST = [];
+            $_SESSION['success'] = true;
+            $_SESSION['content'] = 'Le webtoon suivant a été ajouté : ' . unClean($webtoon->getTitle());
+            header('Location:' . $router->url('home-admin'));
         } else
             BuildErrors::setErrors('fail', "Ajout des données échoué");
     } else

@@ -23,11 +23,11 @@ CREATE TABLE webtoon
 CREATE TABLE web_cat
 (
     wc_id SERIAL PRIMARY KEY,
-    c_id INT NOT NULL,
-    w_id INT NOT NULL,
-    CONSTRAINT fk_cat FOREIGN KEY (c_id) REFERENCES category(c_id)
+    category INT NOT NULL,
+    webtoon INT NOT NULL,
+    CONSTRAINT fk_cat FOREIGN KEY (category) REFERENCES category(c_id)
     ON DELETE CASCADE,
-    CONSTRAINT fk_web FOREIGN KEY (w_id) REFERENCES webtoon(w_id)
+    CONSTRAINT fk_web FOREIGN KEY (webtoon) REFERENCES webtoon(w_id)
     ON DELETE CASCADE
 );
 

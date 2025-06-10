@@ -52,9 +52,9 @@ $chapters = ChapterRepository::findWebtoon($webtoon->getId());
                 <hr>
                 <p>Sortie en : <?= $webtoon->getReleaseYear() ?></p>
                 <hr>
-                <p>Statut : <?= $webtoon->getStatus() ? "En cours" : "Terminé" ?></p>
+                <p>Statut : <?= $webtoon->getStatus() ? "Terminé" : "En cours" ?></p>
                 <hr>
-                <p>Genres : <?= $webtoon->getCategories() ?></p>
+                <p>Genres : <?= str_replace(',', ', ', $webtoon->getCategories()) ?></p>
                 <hr>
                 <p class="synopsis">Synopsis : <?= unClean($webtoon->getSynopsis()) ?></p>
             </div>

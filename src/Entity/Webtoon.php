@@ -17,8 +17,6 @@ class Webtoon
     private $c_ids;
     private $categories;
 
-    private ?array $STATUT = ["EN COURS", "TERMINE"];
-
     /**
      * Get the value of id
      *
@@ -168,7 +166,7 @@ class Webtoon
      * @return self
      */
     public function setStatus(string $st): self {
-        $this->status = in_array($st, $this->STATUT, true) ? true : false;
+        $this->status = $st == "TERMINE" ? true : false;
         return $this;
     }
 
@@ -223,5 +221,12 @@ class Webtoon
      */
     public function getCategories() {
         return $this->categories;
+    }
+
+    /**
+     * Get the value of c_ids
+     */
+    public function getIDCategories() {
+        return $this->c_ids;
     }
 }
