@@ -20,6 +20,7 @@ $webtoons = $repository->findAll();
         $_SESSION['success'] = false;
     }
 ?>
+<div style="margin-top: 95px;"></div>
 <table class="table-responsive">
     <thead>
         <tr>

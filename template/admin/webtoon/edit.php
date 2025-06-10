@@ -5,6 +5,7 @@ use Riotoon\Repository\{CategoryRepository, WebtoonRepository};
 use Riotoon\Service\BuildErrors;
 
 $id = (int) $params['id'];
+$is_admin = true;
 $errors = [];
 
 $repository = new WebtoonRepository();
