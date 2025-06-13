@@ -59,7 +59,7 @@ $categories = CategoryRepository::findAll();
                             <ul>
                                 <?php foreach ($categories as $cat): ?>
                                     <li><a <?= isset($label) && $label == goodURL($cat->getName()) ? 'class="active"' : '' ?>
-                                            href="#"><?= $cat->getName() ?></a>
+                                            href="<?= $router->url('category', ['id'  => $cat->getId(), 'label' => goodURL($cat->getName())]) ?>"><?= $cat->getName() ?></a>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

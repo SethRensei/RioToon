@@ -41,4 +41,4 @@ CREATE TABLE chapter(
 );
 
 -- INSERT DATA
-INSERT INTO category VALUES (1,'Action'),(2,'Adulte'),(3,'Arts Martiaux'),(4,'Aventure'),(5,'Biographie'),(6,'Combat'),(7,'Comédie'),(8,'Cyberpunk'),(9,'Drame'),(10,'Famille'),(11,'Fantaisie'),(12,'Guerre'),(13,'Historique'),(14,'Horreur'),(15,'Isekai'),(16,'Josei'),(17,'Magie'),(18,'Musique'),(19,'Mystère'),(20,'Politique'),(21,'Post-apocalyptique'),(22,'Psycho'),(23,'Romance'),(24,'Sc-Fi'),(25,'School life'),(26,'Seinen'),(27,'Shojo'),(28,'Shonen'),(29,'Slice of Life'),(30,'Sport'),(31,'Steampunk'),(32,'Surnaturel'),(33,'Thriller'),(34,'Tragédie'),(35,'Webcomic');
+INSERT INTO category(label) VALUES ('Action'),('Adulte'),('Arts Martiaux'),('Aventure'),('Biographie'),('Combat'),('Comédie'),('Cyberpunk'),('Drame'),('Famille'),('Fantaisie'),('Guerre'),('Historique'),('Horreur'),('Isekai'),('Josei'),('Magie'),('Musique'),('Mystère'),('Politique'),('Post-apocalyptique'),('Psycho'),('Romance'),('Sc-Fi'),('School life'),('Seinen'),('Shojo'),('Shonen'),('Slice of Life'),('Sport'),('Steampunk'),('Surnaturel'),('Thriller'),('Tragédie'),('Webcomic');

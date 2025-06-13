@@ -112,10 +112,28 @@ function excerpt($content, int $limit = 15)
  * @param string $word The input word or string to generate a URL-friendly version of.
  * @return string|null The URL-friendly string, or null if input is invalid.
  */
-function goodURL(string $word): ?string
+function goodURL(string $text): ?string
 {
-    $word = unClean($word);
-    return urlencode(strtolower(str_replace(chars(), '-', $word)));
+    // 0. Décodage initial des entités HTML (&amp;#039; → &#039; → ', etc.)
+    $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    // 1. Translitération des accents (É → E, ç → c…)
+    $text = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
+    if ($text === false) {
+        return null;
+    }
+
+    // 2. Re-décodage pour convertir les entités numériques restantes (&#039; → ')
+    $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $text = mb_strtolower($text, 'UTF-8');
+
+    // 4. On ne garde que lettres, chiffres et espaces
+    $text = preg_replace('/[^a-z0-9 -]+/', '', $text);
+
+    // 5. Espaces (séquences) → tiret unique
+    $text = preg_replace('/\s+/', '-', $text);
+    // 7. Enfin, encodage URL strict pour sécuriser les éventuels restes
+    return rawurlencode($text);
 }
 
 

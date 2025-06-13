@@ -6,6 +6,7 @@ class Category
 {
     protected int $c_id;
     protected ?string $label;
+    private ?int $webtoon_count;
 
     /**
      * Get the value of c_id
@@ -23,5 +24,14 @@ class Category
      */
     public function getName(): ?string {
         return $this->label;
+    }
+
+    /**
+     * Get the value of webtoon_count
+     *
+     * @return ?int
+     */
+    public function getWebtoonCount(): ?int {
+        return $this->webtoon_count;
     }
 }

@@ -61,6 +61,14 @@
                 </a>
             </li>
             <li>
+                <a href="<?= $router->url('see-cat') ?>" class="<?= isset($active) && $active == 'genre' ? 'active' : '' ?>">
+                    <span class="icon">
+                        <i class="fas fa-layer-group"></i>
+                    </span>
+                    <span class="title">Genres</span>
+                </a>
+            </li>
+            <li>
                 <a>
                     <form method="post" action="#">
                         <button type="submit" style="background: transparent;">
