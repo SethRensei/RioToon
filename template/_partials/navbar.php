@@ -10,7 +10,6 @@
             </form>
             <div id="resultat">
                 <ul>
-                    <!-- <li><?= $row->getTitle?></li> -->
                 </ul>
             </div>
         </div>
