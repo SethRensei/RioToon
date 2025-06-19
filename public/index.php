@@ -15,7 +15,7 @@ define(constant_name: 'BASE_URL', value: dirname(path: $_SERVER['SCRIPT_NAME']))
 
 $router = new Router(view_path: dirname(path: __DIR__) . '/template');
 
-$router->get(url: '/', view: 'index', name: 'home')
+$router->fallOver(url: '/', view: 'index', name: 'home')
     ->fallOver('/webtoon/[i:id]-[*:title]', 'post/show-detail', 'show-webt')
     ->fallOver('/webtoon/read/[i:id]-[*:title]/Chapitre-[*:chapt]', 'post/read-webtoon', 'read')
     ->fallOver('/webtoon/category/EDj-9loi0-[i:id]S2v6-jhgQ/[*:label]', 'post/category', 'category')

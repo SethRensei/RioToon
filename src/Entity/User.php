@@ -181,4 +181,13 @@ class User
     {
         return $this->created_at;
     }
+
+    /**
+     * Returns the roles of the user as decoded from JSON.
+     * @return array The roles of the user
+     */
+    public function getCollectionsRoles()
+    {
+        return (array) json_decode(json_decode($this->getRoles()));
+    }
 }

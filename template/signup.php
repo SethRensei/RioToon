@@ -65,7 +65,7 @@ $errors = BuildErrors::getErrors();
                 <?php if (isset($errors['email'])): ?>
                         <p><?= $errors['email'] ?></p>
                 <?php endif ?>
-                <input type="email" name="email" value="<?= clean($_POST['email'] ?? '') ?>" placeholder="Email*">
+                <input type="email" name="email" value="<?= clean($_POST['email'] ?? '') ?>" placeholder="Email*" autocomplete="off">
                 <span class="bar" <?= isset($errors['email']) ? 'style="background-color: var(--col-red);"' : '' ?>></span>
             </div>
             <div class="form-input">
@@ -74,7 +74,7 @@ $errors = BuildErrors::getErrors();
                         <p class="ri-error"><?= $errors['password'] ?></p>
                 <?php endif ?>
                 <p class="r-error"></p>
-                <input id="password" type="password" name="password" class="password-v" value="<?= clean($_POST['password'] ?? '') ?>" placeholder="Mot de passe">
+                <input id="password" type="password" name="password" class="password-v" value="<?= clean($_POST['password'] ?? '') ?>" placeholder="Mot de passe*" autocomplete="off">
                 <span class="bar"></span>
                 <div class="view">
                     <i class="fas fa-eye"></i>

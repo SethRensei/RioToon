@@ -50,4 +50,19 @@ class UserRepository
         }
         return true;
     }
+
+    public function find(string $search)
+    {
+        try {
+            $query = $this->connection->prepare('SELECT * FROM "user"
+                WHERE pseudo = :sea OR email = :sea');
+            $query->bindValue('sea', clean($search));
+            $query->execute();
+            $query->setFetchMode(\PDO::FETCH_CLASS, User::class);
+            $this->items = $query->fetch();
+        } catch (\PDOException $e) {
+            die("Impossible d'éxecuter la requête" . $e->getMessage());
+        }
+        return $this->items;
+    }
 }

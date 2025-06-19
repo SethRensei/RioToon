@@ -28,7 +28,7 @@ $(document).ready(() => {
         $("html, body").animate({ scrollTop: 0 }, 500);
     });
 
-    // TRAITEMENT SUR L'AFFICHAGE DU MOT DE PASSE
+    // PROCESSING ON PASSWORD DISPLAY
     const eye_open = $(".view .fa-eye"),
         eye_slash = $(".view .fa-eye-slash"),
         mdp = $("#password");
@@ -47,7 +47,7 @@ $(document).ready(() => {
         $("#new-pass").attr("type", "password");
     });
 
-    // REGLES DE VALIDATION DU MOT DE PASSE
+    // PASSWORD VALIDATION RULES
     $(".password-v").keyup(function () {
         $(".r-error").hide();
         let $password = $(this).val();
@@ -78,6 +78,21 @@ $(document).ready(() => {
                         .text("Doit contenir au moins un chiffre");
             } else $(".r-error").show().text("Avoir au moins une lettre");
         } else $(".r-error").hide();
+    });
+
+    // PROCESSING ON DISPLAYING THE LOGIN PAGE
+    const wrapper = $(".wrapper"),
+        login = $(".btn-login"),
+        icon_close = $(".icon-close"),
+        links = $(".header-2 .nav_bar ul li a");
+    login.click(function () {
+        wrapper.toggleClass("active-popup");
+    });
+    icon_close.click(function () {
+        wrapper.removeClass("active-popup");
+    });
+    links.click(function () {
+        wrapper.removeClass("active-popup");
     });
 
     /* ADMIN */
