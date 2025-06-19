@@ -19,6 +19,7 @@ $router->get(url: '/', view: 'index', name: 'home')
     ->fallOver('/webtoon/[i:id]-[*:title]', 'post/show-detail', 'show-webt')
     ->fallOver('/webtoon/read/[i:id]-[*:title]/Chapitre-[*:chapt]', 'post/read-webtoon', 'read')
     ->fallOver('/webtoon/category/EDj-9loi0-[i:id]S2v6-jhgQ/[*:label]', 'post/category', 'category')
+    ->fallOver('/signup-riotoon', 'signup', 'signup')
     
     // ADMIN
     ->get('/admin', 'admin/index', 'home-admin')

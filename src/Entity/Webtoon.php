@@ -2,6 +2,8 @@
 
 namespace Riotoon\Entity;
 
+use Riotoon\Service\BuildErrors;
+
 class Webtoon
 {
     private ?int $w_id;
@@ -103,6 +105,9 @@ class Webtoon
      * @return self
      */
     public function setSynopsis(?string $synopsis): self {
+        $synopsis = nl2br(clean($synopsis));
+        if (!strlen($synopsis >= 10))
+           BuildErrors::setErrors('synopsis', 'Le synopsis doit contenir au moins 10 caractères');
         $this->synopsis = $synopsis;
         return $this;
     }
@@ -124,6 +129,8 @@ class Webtoon
      * @return self
      */
     public function setCover(?string $cover): self {
+        if ($cover == '')
+            BuildErrors::setErrors('image', 'Impossible de charger une image vide');
         $this->cover = $cover;
         return $this;
     }
@@ -145,6 +152,8 @@ class Webtoon
      * @return self
      */
     public function setReleaseYear(?int $release_year): self {
+        if (!($release_year >= 1995 && $release_year <= date('Y')))
+            BuildErrors::setErrors('year', 'Date comprise entre 1995 - ' . date('Y'));
         $this->release_year = $release_year;
         return $this;
     }

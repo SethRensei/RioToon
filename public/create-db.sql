@@ -40,5 +40,34 @@ CREATE TABLE chapter(
     CONSTRAINT fk_ch_web FOREIGN KEY(webtoon) REFERENCES webtoon
 );
 
+CREATE TABLE "user"
+(
+    u_id SERIAL PRIMARY KEY,
+    pseudo VARCHAR(50) NOT NULL,
+    fullname VARCHAR(200),
+    email VARCHAR(120) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    profile_picture VARCHAR(255) NULL DEFAULT NULL,
+    roles JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE UNIQUE INDEX user_pseudo_key ON "user" USING btree ("pseudo");
+
+CREATE TABLE vote
+(
+    v_id SERIAL PRIMARY KEY,
+    webtoon INT NOT NULL,
+    "user" INT NOT NULL,
+    vote INT NOT NULL,
+    CONSTRAINT fk_web_vote 
+        FOREIGN KEY (webtoon) REFERENCES webtoon(w_id)
+        ON DELETE CASCADE
+        ON UPDATE RESTRICT,        
+    CONSTRAINT fk_user_vote
+        FOREIGN KEY ("user") REFERENCES "user"(u_id)
+        ON DELETE CASCADE
+        ON UPDATE RESTRICT
+)
+
 -- INSERT DATA
 INSERT INTO category(label) VALUES ('Action'),('Adulte'),('Arts Martiaux'),('Aventure'),('Biographie'),('Combat'),('Comédie'),('Cyberpunk'),('Drame'),('Famille'),('Fantaisie'),('Guerre'),('Historique'),('Horreur'),('Isekai'),('Josei'),('Magie'),('Musique'),('Mystère'),('Politique'),('Post-apocalyptique'),('Psycho'),('Romance'),('Sc-Fi'),('School life'),('Seinen'),('Shojo'),('Shonen'),('Slice of Life'),('Sport'),('Steampunk'),('Surnaturel'),('Thriller'),('Tragédie'),('Webcomic');
