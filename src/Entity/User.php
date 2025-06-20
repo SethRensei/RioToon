@@ -188,6 +188,6 @@ class User
      */
     public function getCollectionsRoles()
     {
-        return (array) json_decode(json_decode($this->getRoles()));
+        return (array) json_decode(json_decode($this->roles));
     }
 }
