@@ -75,4 +75,16 @@ class ChapterRepository
 
         return $items;
     }
+
+    public function findAll()
+    {
+        try {
+            $query = $this->connec->query("SELECT * FROM chapter");
+            $items = $query->fetchAll(\PDO::FETCH_CLASS, Chapter::class);
+        } catch (\PDOException $e) {
+            die("Impossible de récupérer les information : " . $e->getMessage());
+        }
+
+        return $items;
+    }
 }

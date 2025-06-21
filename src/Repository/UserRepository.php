@@ -37,6 +37,22 @@ class UserRepository
         }
     }
 
+    public function edit(User $user)
+    {
+        try {
+            $query = $this->connection->prepare('UPDATE "user" SET fullname = :ful, roles = :rol
+            WHERE u_id = :id');
+            $query->bindValue(':ful', $user->getFullname());
+            $query->bindValue(':rol', $user->getRoles());
+            $query->bindValue(':id', $user->getId());
+
+            $query->execute();
+            $query->closeCursor();
+        } catch (\PDOException $e) {
+            die("Une erreur est survenue lors de la mise à jour : " . $e->getMessage());
+        }
+    }
+
     private function isUser(User $user) : bool
     {
         try {
@@ -63,6 +79,77 @@ class UserRepository
         } catch (\PDOException $e) {
             die("Impossible d'éxecuter la requête" . $e->getMessage());
         }
+        return $this->items;
+    }
+
+    public function editPassword(User $user)
+    {
+        try {
+            $query = $this->connection->prepare('UPDATE "user" SET password = :pas
+            WHERE pseudo = :pse');
+            $query->bindValue(':pas', $user->getPassword());
+            $query->bindValue(':pse', $user->getPseudo());
+
+            $query->execute();
+            $query->closeCursor();
+        } catch (\PDOException $e) {
+            die("Une erreur est survenue lors du changement du mot de passe : " . $e->getMessage());
+        }
+    }
+
+    public function addProfilePicture(User $user)
+    {
+        try {
+            $query = $this->connection->prepare('UPDATE "user" SET profile_picture = :pro WHERE pseudo = :pse');
+            $query->bindValue(':pro', $user->getProfile());
+            $query->bindValue(':pse', $user->getPseudo());
+
+            $query->execute();
+            $query->closeCursor();
+        } catch (\PDOException $e) {
+            die("Une erreur est survenue lors de l'ajout de la photo de profil : " . $e->getMessage());
+        }
+    }
+
+    public function findAll()
+    {
+        try {
+            $query = $this->connection->query('SELECT * FROM "user"');
+            $this->items = $query->fetchAll(\PDO::FETCH_CLASS, User::class);
+        } catch (\PDOException $e) {
+            die("Impossible de récupérer les information : " . $e->getMessage());
+        }
+
+        return $this->items;
+    }
+
+    public function getCountLike($id)
+    {
+        try {
+            $query = $this->connection->prepare('SELECT COUNT("user") as user_count FROM vote 
+                WHERE "user"= :id AND vote = 1');
+            $query->bindValue(":id", clean($id));
+            $query->execute();
+            $this->items = $query->fetch();
+        } catch (\PDOException $e) {
+            die("Impossible de récupérer le nombre total de likes : " . $e->getMessage());
+        }
+
+        return $this->items;
+    }
+
+    public function getCountDislike($id)
+    {
+        try {
+            $query = $this->connection->prepare('SELECT COUNT("user") as user_count FROM vote 
+                WHERE "user"= :id AND vote = -1');
+            $query->bindValue(":id", clean($id));
+            $query->execute();
+            $this->items = $query->fetch();
+        } catch (\PDOException $e) {
+            die("Impossible de récupérer le nombre total de likes : " . $e->getMessage());
+        }
+
         return $this->items;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Riotoon\Entity\Webtoon;
-use Riotoon\Repository\{WebtoonRepository};
+use Riotoon\Repository\{ChapterRepository, CategoryRepository, UserRepository, WebtoonRepository};
 
 $is_admin = true;
 $active = 'home';
@@ -12,9 +12,52 @@ $repository = new WebtoonRepository();
 
 /** @var Webtoon */
 $webtoons = $repository->findAll();
+
+$webt_count = count($webtoons);
+$user_count = count((new UserRepository())->findAll());
+$chap_count = count((new ChapterRepository())->findAll());
+$genr_count = count((new CategoryRepository())->findAll());
 ?>
 
 <div style="margin-top: 95px;"></div>
+<div class="card-box">
+    <div class="rio-card">
+        <div>
+            <div class="numbers"><?= $user_count ?></div>
+            <div class="card-name">Utilisateurs</div>
+        </div>
+        <div class="icon-bx">
+            <i class="fas fa-user-group"></i>
+        </div>
+    </div>
+    <div class="rio-card">
+        <div>
+            <div class="numbers"><?= $webt_count ?></div>
+            <div class="card-name">Webtoons</div>
+        </div>
+        <div class="icon-bx">
+            <i class="fas fa-book-open-reader"></i>
+        </div>
+    </div>
+    <div class="rio-card">
+        <div>
+            <div class="numbers"><?= $chap_count ?></div>
+            <div class="card-name">Chapitres</div>
+        </div>
+        <div class="icon-bx">
+            <i class="fas fa-bookmark"></i>
+        </div>
+    </div>
+    <div class="rio-card">
+        <div>
+            <div class="numbers"><?= $genr_count ?></div>
+            <div class="card-name">Genres de webtoon</div>
+        </div>
+        <div class="icon-bx">
+            <i class="fas fa-layer-group"></i>
+        </div>
+    </div>
+</div>
 <?php if (isset($_SESSION['success']) && $_SESSION['success'] == true) {
         echo messageFlash('success', $_SESSION['content']);
         $_SESSION['content'] = '';
