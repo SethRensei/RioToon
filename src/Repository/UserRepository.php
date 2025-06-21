@@ -21,12 +21,14 @@ class UserRepository
             BuildErrors::setErrors('userExists', "Pseudo ou mail déjà existant");
         else {
             try {
-                $q = $this->connection->prepare('INSERT INTO "user"(pseudo, fullname, email, password, roles)
-                VALUES(:pse, :ful, :ema, :pass, :rol)');
+                $q = $this->connection->prepare('INSERT INTO "user"(pseudo, fullname, email, password, roles, is_verified, confir_key)
+                VALUES(:pse, :ful, :ema, :pass, :rol, :ver, :cfk)');
                 $q->bindValue(':pse', $user->getPseudo(), \PDO::PARAM_STR);
                 $q->bindValue(':ful', $user->getFullname(), \PDO::PARAM_STR);
                 $q->bindValue(':ema', $user->getEmail(), \PDO::PARAM_STR);
                 $q->bindValue(':pass', $user->getPassword(), \PDO::PARAM_STR);
+                $q->bindValue(':ver', $user->getVerified(), \PDO::PARAM_INT);
+                $q->bindValue(':cfk', $user->getConfirmKey(), \PDO::PARAM_INT);
                 $q->bindValue(':rol', $user->getRoles(),);
     
                 $q->execute();
@@ -40,7 +42,7 @@ class UserRepository
     public function edit(User $user)
     {
         try {
-            $query = $this->connection->prepare('UPDATE "user" SET fullname = :ful, roles = :rol
+            $query = $this->connection->prepare('UPDATE "user" SET fullname = :ful, roles = :rol, updated_at = CURRENT_TIMESTAMP
             WHERE u_id = :id');
             $query->bindValue(':ful', $user->getFullname());
             $query->bindValue(':rol', $user->getRoles());
@@ -85,7 +87,7 @@ class UserRepository
     public function editPassword(User $user)
     {
         try {
-            $query = $this->connection->prepare('UPDATE "user" SET password = :pas
+            $query = $this->connection->prepare('UPDATE "user" SET password = :pas, updated_at = CURRENT_TIMESTAMP
             WHERE pseudo = :pse');
             $query->bindValue(':pas', $user->getPassword());
             $query->bindValue(':pse', $user->getPseudo());
@@ -100,7 +102,8 @@ class UserRepository
     public function addProfilePicture(User $user)
     {
         try {
-            $query = $this->connection->prepare('UPDATE "user" SET profile_picture = :pro WHERE pseudo = :pse');
+            $query = $this->connection->prepare('UPDATE "user" SET profile_picture = :pro, updated_at = CURRENT_TIMESTAMP
+            WHERE pseudo = :pse');
             $query->bindValue(':pro', $user->getProfile());
             $query->bindValue(':pse', $user->getPseudo());
 
@@ -108,6 +111,31 @@ class UserRepository
             $query->closeCursor();
         } catch (\PDOException $e) {
             die("Une erreur est survenue lors de l'ajout de la photo de profil : " . $e->getMessage());
+        }
+    }
+
+    public function editConfirmKey(User $u)
+    {
+        try {
+            $query = $this->connection->prepare('UPDATE "user" SET confir_key = :con, updated_at = CURRENT_TIMESTAMP WHERE pseudo = :pse');
+            $query->bindValue(':con', $u->getConfirmKey());
+            $query->bindValue(':pse', $u->getPseudo());
+            $query->execute();
+            $query->closeCursor();
+        } catch (\PDOException $e) {
+            die("Impossible de changer le clé de confirmation : " . $e->getMessage());
+        }
+    }
+
+    public function verifyEmail(User $u) {
+        try {
+            $query = $this->connection->prepare('UPDATE "user" SET is_verified = :ver, updated_at = CURRENT_TIMESTAMP WHERE pseudo = :pse');
+            $query->bindValue(':ver', $u->getVerified());
+            $query->bindValue(':pse', $u->getPseudo());
+            $query->execute();
+            $query->closeCursor();
+        } catch (\PDOException $e) {
+            die("Verification du compte échouée : " . $e->getMessage());
         }
     }
 

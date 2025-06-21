@@ -9,11 +9,16 @@ if (isset($_POST['login'])) {
         $user = $repository->find($_POST['user']);
         if ($user != false) {
             if (password_verify($_POST['password'], $user->getPassword())) {
-                
-                $_SESSION['User'] = $user->getId();
-                $_SESSION['pseudo'] = $user->getPseudo();
-                $_SESSION['fullname'] = unClean($user->getFullname());
-                $_SESSION['roles'] = $user->getCollectionsRoles();
+                if ($user->getVerified() == 1) {
+                    $_SESSION['User'] = $user->getId();
+                    $_SESSION['pseudo'] = $user->getPseudo();
+                    $_SESSION['fullname'] = unClean($user->getFullname());
+                    $_SESSION['roles'] = $user->getCollectionsRoles();
+                    echo "<script>window.history.back();</script>";
+                } else {
+                    $_SESSION['user_register'] = 'Veuillez confirmer votre compte';
+                    header('Location:' . $router->url('verif', ['pseudo' => $user->getPseudo()]));
+                }
             } else {
                 echo "<script>window.history.back();</script>";
                 echo "<script>alert('Identifiant incorrect');</script>";

@@ -23,6 +23,7 @@ $router->fallOver(url: '/', view: 'index', name: 'home')
     ->post('/logout-riotoon', 'logout', 'logout')
     ->post('/webtoon/votes', 'post/vote', 'vote')
     ->fallOver('/my-profile/[*:pseudo]', 'post/profile', 'profile')
+    ->fallOver('/verify/[*:pseudo]', 'verify-email', 'verif')
     
     // ADMIN
     ->get('/admin', 'admin/index', 'home-admin')

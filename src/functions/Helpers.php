@@ -42,9 +42,10 @@ function br2nl($string)
  */
 function messageFlash(string $type_alert, string $message): string
 {
+    $message = nl2br(trim($message));
     return <<<HTML
     <div class="alert alert-{$type_alert} alert-dismissible" role="alert">
-        <strong class="ms-3">{$message}</strong>
+        <strong>{$message}</strong>
         <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
     </div>
 HTML;

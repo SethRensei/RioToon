@@ -14,6 +14,9 @@ class User
     private ?string $password;
     private ?string $profile_picture = null;
     private $created_at;
+    private ?int $confir_key;
+    private ?int $is_verified;
+    private $updated_at;
 
     /**
      * Get the value of u_id
@@ -189,5 +192,54 @@ class User
     public function getCollectionsRoles()
     {
         return (array) json_decode(json_decode($this->roles));
+    }
+
+    /**
+     * Get the value of confir_key
+     */ 
+    public function getConfirmKey()
+    {
+        return $this->confir_key;
+    }
+
+    /**
+     * Update the value of confir_key
+     *
+     *
+     * @return self
+     */
+    public function updateConfirKey(): self
+    {
+        $this->confir_key = mt_rand(100000, 999999);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of is_verified
+     */ 
+    public function getVerified(): ?int
+    {
+        return $this->is_verified;
+    }
+
+    /**
+     * Set the value of is_verified
+     *
+     * @return  self
+     */ 
+    public function setVerified($is_verified): self
+    {
+        $this->is_verified = $is_verified;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updated_at
+     */ 
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
     }
 }

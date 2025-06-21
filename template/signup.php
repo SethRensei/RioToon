@@ -2,14 +2,14 @@
 
 use Riotoon\Entity\User;
 use Riotoon\Repository\UserRepository;
-use Riotoon\Service\BuildErrors;
+use Riotoon\Service\{BuildErrors, Mailer};
 
 $navbar = ''; // Retirer la navbar et le footer
 $pg_title = "Sincrire sur Riotoon";
 
 $repository = new UserRepository();
 $user = new User();
-
+$mail = new Mailer();
 $errors = [];
 
 if (isset($_POST['validate'])) {
@@ -19,12 +19,21 @@ if (isset($_POST['validate'])) {
             ->setFullname($_POST['fullname'])
             ->setEmail($_POST['email'])
             ->setRoles(['ROLE_USER'])
+            ->setVerified(0)
+            ->updateConfirKey()
             ->setPassword($_POST['password']);
+        $message = "<h1 style='font-size: 33px;'>Bienvenue sur RioToon</h1>
+            <h3 style='font-size: 29px;'>" . $fullname . " alias " . $_POST['pseudo'] . "</h3>
+            <p style='font-size: 24px;'>Votre code de confirmation est : <strong>" . $user->getConfirmKey() .
+            "</strong></p>
+            <p style='font-size: 18px;'>---------------<br>Ceci est un mail automatique, Merci de ne pas y répondre.</p>";
+        $mail->send($_POST['email'], $fullname, 'Vérification du compte', $message);
         $errors = BuildErrors::getErrors();
         $repository->create($user);
         if (empty($errors)) {
             $_POST = [];
             $_SESSION['user_register'] = "Veuillez consulter votre email pour obtenir le code de validation";
+            header('Location:' . $router->url('verif', ['pseudo' => goodURL($user->getPseudo())]), true, 301);
             
         }
     } else

@@ -60,8 +60,7 @@ $genr_count = count((new CategoryRepository())->findAll());
 </div>
 <?php if (isset($_SESSION['success']) && $_SESSION['success'] == true) {
         echo messageFlash('success', $_SESSION['content']);
-        $_SESSION['content'] = '';
-        $_SESSION['success'] = false;
+        unset($_SESSION['content'], $_SESSION['success']);
     }
 ?>
 <table class="table-responsive">

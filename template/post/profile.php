@@ -4,9 +4,11 @@ use Riotoon\Entity\User;
 use Riotoon\Service\BuildErrors;
 use Riotoon\Repository\UserRepository;
 use Riotoon\Service\LtAvatar;
+use Riotoon\Service\Mailer;
 
 $pseudo = $params['pseudo'];
 $repository = new UserRepository();
+$mail = new Mailer();
 
 /** @var User|false */
 $user = $repository->find($pseudo);
@@ -22,11 +24,20 @@ $count_dislike = $repository->getCountDislike($user->getId())['user_count'];
 if (isset($_POST['change-password'], $_POST['old-pass'], $_POST['new-pass'])) {
     if (password_verify($_POST['old-pass'], $user->getPassword())) {
         if ($_POST['old-pass'] != $_POST['new-pass']) {
-            $user->setPassword($_POST['new-pass']);
-            $repository->editPassword($user);
-            $_POST = [];
-            $_SESSION['success'] = true;
-            $_SESSION['content'] = 'Vous avez modifié (e) votre mot de passe';
+            $user->updateConfirKey();
+            $_SESSION['change_password'] = 'Accepted';
+            $_SESSION['new_password'] = clean($_POST['new-pass']);
+            $_SESSION['user_register'] = "Confirmez la modification du mot de passe avec le code reçu par email";
+            $message = "<h1 style='font-size: 33px;'>RioToon avec Vous !</h1>
+            <h3 style='font-size: 29px;'>" . unClean($user->getPseudo()) . " est-ce vous ?</h3>
+            <p style='font-size: 24px;'>Votre mot de passe sera modifié en validant votre identité. <br>
+            Si ce n'est pas vous, veuillez ignorer ce message. <br>
+            Votre code de confirmation est : <strong>" . $user->getConfirmKey() .
+                "</strong></p>
+            <p style='font-size: 18px;'>---------------<br>Ceci est un mail automatique, Merci de ne pas y répondre.</p>";
+            $mail->send($user->getEmail(), unClean($user->getPseudo()), 'Modification du mot de passe', $message);
+            $repository->editConfirmKey($user);
+            header('Location:' . $router->url('verif', ['pseudo' => goodURL($user->getPseudo())]));
         } else
             BuildErrors::setErrors('same', 'Vous avez saisi le même mot de passe');
     } else
@@ -64,7 +75,7 @@ if (isset($_POST['add-picture'], $_FILES['image']['name'])) {
             $repository->addProfilePicture($user);
             $_POST = [];
             $_SESSION['success'] = true;
-            $_SESSION['content'] = 'Photo de profil modifiée avec succès';
+            $_SESSION['content'] = 'Vous avez ajouté (e) une photo de profil';
         }
     } else
         BuildErrors::setErrors('move_pic', "Impossible de télécharger l'image");
@@ -83,8 +94,7 @@ $errors = BuildErrors::getErrors();
     <?php endif; ?>
     <?php if (isset($_SESSION['success']) && $_SESSION['success'] == true) {
         echo messageFlash('success', $_SESSION['content']);
-        $_SESSION['content'] = '';
-        $_SESSION['success'] = false;
+        unset($_SESSION['content'], $_SESSION['success']);
     }
     ?>
     </div>
