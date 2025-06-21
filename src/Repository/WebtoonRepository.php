@@ -71,7 +71,7 @@ class WebtoonRepository
     public function findAll()
     {
         try {
-            $query = $this->connec->query("SELECT * FROM webtoon");
+            $query = $this->connec->query("SELECT * FROM webtoon ORDER BY w_id DESC");
             $this->items = $query->fetchAll(\PDO::FETCH_CLASS, Webtoon::class);
         } catch (\PDOException $e) {
             die("Impossible de récupérer les information : " . $e->getMessage());

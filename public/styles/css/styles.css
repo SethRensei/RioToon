@@ -297,6 +297,28 @@ html a {
     text-align: justify;
 }
 
+.show-wrapper {
+    overflow: hidden;
+    transition: max-height 2.3s ease-in-out;
+    max-height: 200px;
+}
+
+.show-wrapper.expanded, .last-chapters .table-resp--web.expanded {
+    max-height: 4500px;
+}
+
+.see-more {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: color 2.5s;
+}
+
+.see-more:hover {
+    color: var(--col-blue1);
+}
+
 .last-chapters {
     color: white;
     padding: 30px;
@@ -306,7 +328,8 @@ html a {
 
 .last-chapters .table-resp--web {
     max-height: 400px;
-    overflow-x: hidden;
+    transition: max-height 1.3s ease-in-out;
+    overflow: hidden;
     width: 90%;
 }
 

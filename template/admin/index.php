@@ -14,13 +14,13 @@ $repository = new WebtoonRepository();
 $webtoons = $repository->findAll();
 ?>
 
+<div style="margin-top: 95px;"></div>
 <?php if (isset($_SESSION['success']) && $_SESSION['success'] == true) {
         echo messageFlash('success', $_SESSION['content']);
         $_SESSION['content'] = '';
         $_SESSION['success'] = false;
     }
 ?>
-<div style="margin-top: 95px;"></div>
 <table class="table-responsive">
     <thead>
         <tr>

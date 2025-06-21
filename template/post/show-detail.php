@@ -60,7 +60,14 @@ if (isset($_SESSION['User']))
                 <hr>
                 <p>Genres : <?= str_replace(',', ', ', $webtoon->getCategories()) ?></p>
                 <hr>
-                <p class="synopsis">Synopsis : <?= unClean($webtoon->getSynopsis()) ?></p>
+                <div id="synop-wrapper" class="show-wrapper">
+                    <div class="synop-text">
+                        <h2 style="font-weight: 600; font-size:larger;">Synopsis</h2>
+                        <?= $webtoon->getSynopsis() ?>
+                    </div>
+                    </div>
+                </div>
+                <span id="toggle-show" class="see-more">Voir plus ▼</span>
             </div>
         </div>
     </section>
@@ -69,7 +76,7 @@ if (isset($_SESSION['User']))
             <h5 style="font-size: 28px;">Liste des chapitres</h5>
             <hr style="width: 90%;">
         </div>
-        <div class="table-resp--web table-responsive scrollbar">
+        <div id="table-wrapper" class="table-resp--web table-responsive">
             <table class="table table-web">
                 <tbody>
                     <?php foreach ($chapters as $chapter): ?>
@@ -83,5 +90,6 @@ if (isset($_SESSION['User']))
                 </tbody>
             </table>
         </div>
+        <span id="toggle-show2" class="see-more">Voir plus ▼</span>
     </section>
 </div>

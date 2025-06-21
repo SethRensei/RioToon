@@ -20,7 +20,18 @@ function clean($word): ?string
  */
 function unClean($word): ?string
 {
-    return nl2br(html_entity_decode($word));
+    return br2nl(html_entity_decode($word));
+}
+
+/**
+ * Removes all <br> tags (case and variant sensitive) with a 
+ * @param mixed $string
+ * @return array|string|null
+ */
+function br2nl($string)
+{
+    // Remplace les balises <br> (peu importe la casse et la variante) par un saut de ligne \n
+    return trim(preg_replace('/<br\s*\/?>/i', "", $string));
 }
 
 /**

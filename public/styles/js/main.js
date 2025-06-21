@@ -28,6 +28,19 @@ $(document).ready(() => {
         $("html, body").animate({ scrollTop: 0 }, 500);
     });
 
+    // SEE MORE TO SYNOPSIS FOR SHOW PAGE
+    let is_open = false;
+    $(".one-webt #toggle-show").click(function () {
+        is_open = !is_open;
+        $("#synop-wrapper").toggleClass("expanded");
+        $(this).text(is_open ? "Voir moins ▲" : "Voir plus ▼");
+    })
+    $(".last-chapters #toggle-show2").click(function () {
+        is_open = !is_open;
+        $("#table-wrapper").toggleClass("expanded");
+        $(this).text(is_open ? "Voir moins ▲" : "Voir plus ▼");
+    });
+
     // PROCESSING ON PASSWORD DISPLAY
     const eye_open = $(".view .fa-eye"),
         eye_slash = $(".view .fa-eye-slash"),
